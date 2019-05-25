@@ -63,5 +63,8 @@ def boxplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), yscale='linear',
     # sns.stripplot(x=x, y=y, data=data, color=single_color, jitter=0.2, size=2.5)
     plot_style(title, xlabel, ylabel, xticks)
 
-
+from code_source.dataset import *
+df=clean_dataset(Dataset.get_data())
+sns.pairplot(df.Age, kind="reg")
+plt.show()
 
