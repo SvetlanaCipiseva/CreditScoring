@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
-import seaborn as sns;
+import seaborn as sns
+from sklearn.metrics import roc_curve, roc_auc_score
 
 background_style = plt.style.use('seaborn-whitegrid')
 single_color = '#008080'
@@ -56,5 +57,14 @@ def boxplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), yscale='linear')
     sns.boxplot(x=x, y=y, data=data, notch=True, width=0.5, saturation=0.9, boxprops=dict(alpha=.5), ax=ax)
     # sns.stripplot(x=x, y=y, data=data, color=single_color, jitter=0.2, size=2.5)
     plot_style(title, xlabel, ylabel)
+
+
+def roc_line(true_y, score_y, title):
+    fpr, tpr, thresholds = roc_curve(true_y, score_y)
+    auc = roc_auc_score(true_y, score_y)
+    sns.lineplot(fpr, tpr, hue=f"{title}: {round(auc,3)}")
+
+
+
 
 
