@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import roc_curve, roc_auc_score
 from matplotlib.ticker import FuncFormatter
+import pandas as pd
+from functools import reduce
 
 background_style = plt.style.use('seaborn-whitegrid')
 single_color = '#008080'
@@ -64,10 +66,23 @@ def boxplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), yscale='linear',
     # sns.stripplot(x=x, y=y, data=data, color=single_color, jitter=0.2, size=2.5)
     plot_style(title, xlabel, ylabel, xticks)
 
-def roc_line(true_y, score_y, title):
+def roc_df(true_y, score_y, title):
     fpr, tpr, thresholds = roc_curve(true_y, score_y)
     auc = roc_auc_score(true_y, score_y)
-    sns.lineplot(fpr, tpr, hue=f"{title}: {round(auc,3)}")
+    df = pd.DataFrame({"FPR": fpr, "TPR": tpr, "Model": f"{title}: {round(auc, 3)}"})
+    return df
+
+def rocplot(true_y, predictors, titles):
+    plt.figure(figsize=[6,6])
+    ax = sns.lineplot([0, 1], [0, 1], color="black")
+    ax.lines[0].set_linestyle("--")
+    ax.lines[0].set_color("black")
+    ax.set(ylim=[0,1], xlim=[0,1])
+
+    df_list = [roc_df(true_y, predictors[i], titles[i]) for i in range(len(predictors))]
+    df = pd.concat(df_list)
+    sns.lineplot("FPR", "TPR", hue="Model", data=df)
+    plt.show()
 
 
 
