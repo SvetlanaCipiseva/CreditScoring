@@ -2,16 +2,20 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import roc_curve, roc_auc_score
+import numpy as np
 from matplotlib.ticker import FuncFormatter
 import pandas as pd
 from functools import reduce
 
 background_style = plt.style.use('seaborn-whitegrid')
 single_color = '#008080'
+second_color = '#BF7FA6'
 transparency = 0.9
+
 
 def format_number(number):
     return '{:,}'.format(int(number)).replace(',', ' ')
+
 
 def plot_style(title, xlabel, ylabel, xticks):
     plt.tick_params(labelsize=xticks)
@@ -45,6 +49,15 @@ def barplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), labels=True, xti
         for index, row in data.iterrows():
             p.text(row.name, row[y] + label_shift, format_number(row[y]), color='black',
                    ha="center", fontsize=14)
+    plot_style(title, xlabel, ylabel, xticks)
+
+
+def stacked_barplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), xticks=16):
+    background_style
+    data.plot(kind='bar', x=x, y=y, stacked=True, alpha=0.7,figsize=figsize,rot=0, color=[single_color,second_color])
+    plt.grid(axis='x')
+    plt.legend(fontsize=16)
+    plt.ylim(0)
     plot_style(title, xlabel, ylabel, xticks)
 
 
@@ -84,7 +97,13 @@ def rocplot(true_y, predictors, titles):
     sns.lineplot("FPR", "TPR", hue="Model", data=df)
     plt.show()
 
-
-
-
+def heatmap(data, figsize=(18, 8)):
+    np.random.seed(0)
+    mask = np.zeros_like(data)
+    mask[np.triu_indices_from(mask)] = True
+    plt.figure(figsize=figsize)
+    with sns.axes_style("white"):
+        sns.heatmap(data, mask=mask, square=True, cmap='PiYG', alpha=0.8, vmin=-1, vmax=1)
+    plt.title('Correlation plot', fontsize=24)
+    plt.show()
 

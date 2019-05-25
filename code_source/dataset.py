@@ -42,6 +42,7 @@ def clean_dataset(df):
     df=clean_customer_type(df)
     df['AgeBin'] = binning(df.Age)
     df['CRBScoreBin'] = binning(df.CRBScore)
+    df = df.drop(columns='MonthsSinceActive')
     return df
 
 def bining(feature):
