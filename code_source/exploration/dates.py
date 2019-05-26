@@ -1,12 +1,12 @@
 import datetime
 
-from code_source.dataset import *
+from code_source.dataset import Dataset
 import calendar
 from dateutil.relativedelta import relativedelta
 import pandas as pd
 class DateContainer:
 
-    df=clean_dataset(Dataset.get_data())
+    df=Dataset.clean_dataset(Dataset.get_data())
 
     min_date=df.DisbursementDate.min()
     max_date=df.DisbursementDate.max()
