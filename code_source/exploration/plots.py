@@ -26,9 +26,10 @@ def plot_style(title, xlabel, ylabel, xticks):
     plt.show()
 
 
-def lineplot(data, title, xlabel, ylabel, figsize=(18, 8), x=None, y=None, xticks=16, percent=False):
+def lineplot(data, title, xlabel, ylabel, figsize=(18, 8), x=None, y=None, xticks=16, percent=False, xscale='linear'):
     background_style
-    plt.figure(figsize=figsize)
+    f, ax = plt.subplots(figsize=figsize)
+    ax.set(xscale=xscale)
     if x is None:
         a = sns.lineplot(data=data, color=single_color, alpha=transparency)
     else:
@@ -54,7 +55,7 @@ def barplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), labels=True, xti
 
 def stacked_barplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), xticks=16):
     background_style
-    data.plot(kind='bar', x=x, y=y, stacked=True, alpha=0.7,figsize=figsize,rot=0, color=[single_color,second_color])
+    data.plot(kind='bar', x=x, y=y, stacked=True, alpha=0.7, figsize=figsize, rot=0, color=[single_color, second_color])
     plt.grid(axis='x')
     plt.legend(fontsize=16)
     plt.ylim(0)
@@ -79,23 +80,34 @@ def boxplot(data, x, y, title, xlabel, ylabel, figsize=(18, 8), yscale='linear',
     # sns.stripplot(x=x, y=y, data=data, color=single_color, jitter=0.2, size=2.5)
     plot_style(title, xlabel, ylabel, xticks)
 
+
 def roc_df(true_y, score_y, title):
     fpr, tpr, thresholds = roc_curve(true_y, score_y)
     auc = roc_auc_score(true_y, score_y)
     df = pd.DataFrame({"FPR": fpr, "TPR": tpr, "Model": f"{title}: {round(auc, 3)}"})
     return df
 
+
 def rocplot(true_y, predictors, titles):
-    plt.figure(figsize=[6,6])
-    ax = sns.lineplot([0, 1], [0, 1], color="black")
+    background_style
+    plt.figure(figsize=[8, 8])
+    ax = sns.lineplot([0, 1], [0, 1])
     ax.lines[0].set_linestyle("--")
     ax.lines[0].set_color("black")
-    ax.set(ylim=[0,1], xlim=[0,1])
+    ax.set(ylim=[0, 1], xlim=[0, 1])
 
     df_list = [roc_df(true_y, predictors[i], titles[i]) for i in range(len(predictors))]
     df = pd.concat(df_list)
-    sns.lineplot("FPR", "TPR", hue="Model", data=df)
+    sns.lineplot("FPR", "TPR", hue="Model", data=df, palette='husl')
+    plt.grid(axis='x')
+
+    plt.legend(fontsize=16)
+    plt.tick_params(labelsize=16)
+    plt.title('ROC comparison', fontsize=24)
+    plt.xlabel(xlabel="FPR", fontsize=16)
+    plt.ylabel(ylabel="TPR", fontsize=16)
     plt.show()
+
 
 def heatmap(data, figsize=(18, 8)):
     np.random.seed(0)
@@ -107,3 +119,10 @@ def heatmap(data, figsize=(18, 8)):
     plt.title('Correlation plot', fontsize=24)
     plt.show()
 
+def kdeplot(data, title, xlabel, ylabel, figsize=(18, 8), xticks=16):
+    background_style
+    plt.subplots(figsize=figsize)
+    sns.kdeplot(data=data, color=single_color, alpha=transparency)
+    plt.grid(axis='x')
+    plt.ylim(0)
+    plot_style(title, xlabel, ylabel, xticks)
