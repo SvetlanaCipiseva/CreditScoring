@@ -6,13 +6,13 @@ import os
 
 script_dir = os.path.dirname(__file__)
 
-rel_path_linear = '../data/svm_linear.model'
+rel_path_linear = '../../data/svm_linear.model'
 abs_file_path_linear = os.path.join(script_dir, rel_path_linear)
 
-rel_path_rbf = '../data/svm_rbf.model'
+rel_path_rbf = '../../data/svm_rbf.model'
 abs_file_path_rbf = os.path.join(script_dir, rel_path_rbf)
 
-rel_path_poly = '../data/svm_poly.model'
+rel_path_poly = '../../data/svm_poly.model'
 abs_file_path_poly = os.path.join(script_dir, rel_path_poly)
 
 X_train = Dataset.X_train.astype('float64')
