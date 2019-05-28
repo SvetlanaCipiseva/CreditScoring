@@ -57,6 +57,7 @@ class Dataset:
         df = df.drop(columns='MonthsSinceActive')
         df['DisbursementDay'] = df.DisbursementDate.dt.day
         df = number_of_previous_loans(df)
+        df = df[~df.FinancialMeasure2Bin.isna()]
         return df
 
     @staticmethod
