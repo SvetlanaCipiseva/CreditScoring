@@ -5,8 +5,8 @@ import os
 
 script_dir = os.path.dirname(__file__)
 
-rel_path_linear = '../../data/gradient_boosting.model'
-abs_file_path = os.path.join(script_dir, rel_path_linear)
+rel_path = '../../data/gradient_boosting.model'
+abs_file_path = os.path.join(script_dir, rel_path)
 
 gradient_boosting = GradientBoostingClassifier(learning_rate=0.1, n_estimators=200,
                                                subsample=0.5, max_depth=5)
