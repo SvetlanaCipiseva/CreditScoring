@@ -68,16 +68,18 @@ class Dataset:
 Dataset.df = Dataset.get_data()
 Dataset.clean_df = Dataset.clean_dataset(Dataset.df)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    Dataset.clean_df[['Age', 'CustomerType', 'SOR',
-                      'MonthsSinceOpen',
-                      'FinancialMeasure1',
-                      'FinancialMeasure2',
-                      'FinancialMeasure4', 'CRBScore',
-                      'PreviousLoans',
-                      'DisbursementDay', 'Amount']],
-    Dataset.clean_df['Default'], test_size=0.3,
-    random_state=0, stratify=Dataset.clean_df['Default'])
+Dataset.X = Dataset.clean_df[['Age', 'CustomerType', 'SOR',
+                              'MonthsSinceOpen',
+                              'FinancialMeasure1',
+                              'FinancialMeasure2',
+                              'FinancialMeasure4', 'CRBScore',
+                              'PreviousLoans',
+                              'DisbursementDay', 'Amount']]
+Dataset.y = Dataset.clean_df['Default']
+
+X_train, X_test, y_train, y_test = train_test_split(Dataset.X,
+                                                    Dataset.y, test_size=0.3,
+                                                    random_state=0, stratify=Dataset.clean_df['Default'])
 X_train = X_train.drop(columns='Amount')
 X_test_amount = X_test.Amount
 X_test = X_test.drop(columns='Amount')
