@@ -22,15 +22,15 @@ scaler.fit(X_train)
 X_train_scaled = scaler.transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# SVC with linear kernel
-svm_linear = SVC(kernel='linear', random_state=0, probability=True)
-svm_linear.fit(X_train_scaled, Dataset.y_train)
-pickle.dump(svm_linear, open(abs_file_path_linear, 'wb'))
-
-# SVC with Radial basis function (RBF) kernel
-svm_rbf = SVC(kernel='rbf', gamma=1, random_state=0, probability=True)
-svm_rbf.fit(X_train_scaled, Dataset.y_train)
-pickle.dump(svm_rbf, open(abs_file_path_rbf, 'wb'))
+# # SVC with linear kernel
+# svm_linear = SVC(kernel='linear', random_state=0, probability=True)
+# svm_linear.fit(X_train_scaled, Dataset.y_train)
+# pickle.dump(svm_linear, open(abs_file_path_linear, 'wb'))
+#
+# # SVC with Radial basis function (RBF) kernel
+# svm_rbf = SVC(kernel='rbf', gamma=1, random_state=0, probability=True)
+# svm_rbf.fit(X_train_scaled, Dataset.y_train)
+# pickle.dump(svm_rbf, open(abs_file_path_rbf, 'wb'))
 
 # SVC with polynomial (degree 2) kernel
 svm_poly=SVC(kernel='poly', degree=2, random_state=0, probability=True)
