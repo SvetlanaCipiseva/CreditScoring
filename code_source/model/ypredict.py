@@ -8,6 +8,9 @@ script_dir = os.path.dirname(__file__)
 rel_path_y_gb = '../../data/y_predict_proba_gb.array'
 abs_file_path_y_gb = os.path.join(script_dir, rel_path_y_gb)
 
+rel_path_y_rf = '../../data/y_predict_proba_rf.array'
+abs_file_path_y_rf = os.path.join(script_dir, rel_path_y_rf)
+
 rel_path_y_svm_linear = '../../data/y_predict_proba_svm_linear.array'
 abs_file_path_y_svm_linear = os.path.join(script_dir, rel_path_y_svm_linear)
 
@@ -21,6 +24,11 @@ abs_file_path_y_svm_poly = os.path.join(script_dir, rel_path_y_svm_poly)
 gradient_boosting = pickle.load(open(absolute_path('gradient_boosting.model'), 'rb'))
 y_predict_gb = gradient_boosting.predict_proba(Dataset.X_test)[:, 1]
 pickle.dump(y_predict_gb, open(abs_file_path_y_gb, 'wb'))
+
+# Random forest
+random_forest = pickle.load(open(absolute_path('random_forest.model'), 'rb'))
+y_predict_rf = random_forest.predict_proba(Dataset.X_test)[:, 1]
+pickle.dump(y_predict_rf, open(abs_file_path_y_rf, 'wb'))
 
 # SVM
 X_train = Dataset.X_train.astype('float64')
