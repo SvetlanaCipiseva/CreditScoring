@@ -3,6 +3,7 @@ import numpy as np
 import os
 from sklearn.model_selection import train_test_split
 from code_source.features.numberloans import number_of_previous_loans
+from sklearn.preprocessing import MinMaxScaler
 
 
 class Dataset:
@@ -90,6 +91,12 @@ Dataset.X_test = X_test
 Dataset.y_train = y_train
 Dataset.y_test = y_test
 Dataset.X_test_amount = X_test_amount
+
+scaler = MinMaxScaler()
+scaler.fit(Dataset.X_train)
+
+Dataset.X_train_scaled = scaler.transform(Dataset.X_train)
+Dataset.X_test_scaled = scaler.transform(Dataset.X_test)
 
 
 def absolute_path(rel_path):
