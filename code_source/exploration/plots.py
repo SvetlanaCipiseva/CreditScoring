@@ -1,11 +1,9 @@
-import matplotlib
 import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.metrics import roc_curve, roc_auc_score
 import numpy as np
-from matplotlib.ticker import FuncFormatter
 import pandas as pd
-from functools import reduce
+import seaborn as sns
+from matplotlib.ticker import FuncFormatter
+from sklearn.metrics import roc_curve, roc_auc_score
 
 background_style = plt.style.use('seaborn-whitegrid')
 single_color = '#008080'
@@ -142,13 +140,13 @@ def kdeplot(data, title, xlabel, ylabel, figsize=(18, 8), xticks=16):
     plt.ylim(0)
     plot_style(title, xlabel, ylabel, xticks)
 
-def revenue_lineplot(rev_lm , rev_log, rev_svm_l, rev_rf, rev_gb):
+
+def revenue_lineplot(rev_lm, rev_log, rev_rf, rev_gb):
     plt.subplots(figsize=(18,8))
     plt.style.use('seaborn-whitegrid')
     sns.set_palette('husl')
     sns.lineplot(data=rev_lm, x='Threshold', y='Revenue')
     sns.lineplot(data=rev_log, x='Threshold', y='Revenue')
-    sns.lineplot(data=rev_svm_l, x='Threshold', y='Revenue')
     sns.lineplot(data=rev_rf, x='Threshold', y='Revenue',lw=3, color='#BF7FA6')
     sns.lineplot(data=rev_gb, x='Threshold', y='Revenue')
     plt.legend(['Linear Regression', 'Logistic Regression', \

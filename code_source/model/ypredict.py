@@ -48,3 +48,6 @@ pickle.dump(y_predict_smv_rbf, open(abs_file_path_y_svm_rbf, 'wb'))
 svm_poly = pickle.load(open(absolute_path('svm_poly.model'), 'rb'))
 y_predict_smv_poly = svm_poly.predict_proba(X_test_scaled)[:, 1]
 pickle.dump(y_predict_smv_poly, open(abs_file_path_y_svm_poly, 'wb'))
+
+from code_source.dataset import Dataset, absolute_path
+a = pickle.load(open(absolute_path('gradient_boosting.model'), 'rb'))
