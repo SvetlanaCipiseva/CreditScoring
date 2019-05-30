@@ -7,7 +7,9 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 background_style = plt.style.use('seaborn-whitegrid')
 single_color = '#008080'
-second_color = '#BF7FA6'
+# single_color = '#6698a8'
+# second_color = '#BF7FA6'
+second_color = '#e26f76'
 transparency = 0.9
 
 
